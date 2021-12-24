@@ -6,12 +6,12 @@ import jm.task.core.jdbc.service.UserServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
-        UserService userService = new UserServiceImpl();
-        userService.createUsersTable();
-        userService.saveUser();
-        userService.getAllUsers();
-        userService.removeUserById();
-        userService.dropUsersTable();
+//        UserService userService = new UserServiceImpl();
+//        userService.createUsersTable();
+//        userService.saveUser();
+//        userService.getAllUsers();
+//        userService.removeUserById();
+//        userService.dropUsersTable();
 
     }
 }
