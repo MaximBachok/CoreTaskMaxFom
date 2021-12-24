@@ -24,29 +24,61 @@ public class UserDaoJDBCImpl implements UserDao {
                     "age TINYINT NOT NULL, " +
                     "PRIMARY KEY (id))");
             statement.executeUpdate();
-            System.out.println("Таблица создана.");
         } catch (SQLException e) {
-            System.out.println("Таблица не создана или уже существует.");
+            e.printStackTrace();
         }
 }
 
     public void dropUsersTable() {
-
+        try(Connection connection = Util.getConnection()){
+            PreparedStatement statement = connection.prepareStatement("DROP TABLE users");
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void saveUser(String name, String lastName, byte age) {
+        try(Connection connection = Util.getConnection();
+            Statement statement = connection.createStatement()){
+            statement.executeUpdate("INSERT users (name, lastName, age) VALUES ('Tvan', 'Tvanov', 22)");
+            statement.executeUpdate("INSERT users (name, lastName, age) VALUES ('Ivan', 'Ivanov', 22)");
+            statement.executeUpdate("INSERT users (name, lastName, age) VALUES ('Svan', 'Svanov', 22)");
+            statement.executeUpdate("INSERT users (name, lastName, age) VALUES ('Zvan', 'Zvanov', 22)");
+
+
+            } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public void removeUserById(long id) {
-
+        try(Connection connection = Util.getConnection();
+        Statement statement = connection.createStatement()){
+            statement.executeUpdate("DELETE FROM users WHERE id = 1");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<User> getAllUsers() {
+        try(Connection connection = Util.getConnection();
+            Statement statement = connection.createStatement()){
+            statement.executeQuery("SELECT * FROM users");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     public void cleanUsersTable() {
-
+        try(Connection connection = Util.getConnection();
+            Statement statement = connection.createStatement()){
+            statement.executeUpdate("DELETE FROM users");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
