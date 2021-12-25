@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-//подключаемся и указываем sql запросы
 public class UserDaoJDBCImpl implements UserDao {
     public UserDaoJDBCImpl() {
 
@@ -43,6 +42,7 @@ public class UserDaoJDBCImpl implements UserDao {
             statement.setString(2, lastName);
             statement.setByte(3, age);
             statement.executeUpdate();
+            System.out.println("User с именем – " + name + " добавлен в базу данных");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,8 +61,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
-        try (Connection connection = Util.getConnection();
-             PreparedStatement statement = connection.prepareStatement("SELECT * FROM users")) {
+        try (Connection connection = Util.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM users");
             ResultSet result = statement.executeQuery();
             while (result.next()) {
                 User user = new User();
@@ -72,6 +72,7 @@ public class UserDaoJDBCImpl implements UserDao {
                 user.setAge(result.getByte("age"));
                 list.add(user);
             }
+            System.out.println(list);
         } catch (SQLException e) {
             e.printStackTrace();
         }
